@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dq.es.dao.userMapper" >
+  <resultMap id="BaseResultMap" type="com.dq.es.pojo.user" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="CHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+    <result column="mobile_no" property="mobileNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="is_changed_pwd" property="isChangedPwd" jdbcType="INTEGER" />
+    <result column="pwd_error_count" property="pwdErrorCount" jdbcType="INTEGER" />
+    <result column="pwd_error_time" property="pwdErrorTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dq.es.pojo.user" extends="BaseResultMap" >
+    <result column="email" property="email" jdbcType="VARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, user_password, user_no, user_type, mobile_no, status, create_time, 
+    last_login_time, is_changed_pwd, pwd_error_count, pwd_error_time, remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    email
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dq.es.pojo.user" >
+    insert into user (id, user_name, user_password, 
+      user_no, user_type, mobile_no, 
+      status, create_time, last_login_time, 
+      is_changed_pwd, pwd_error_count, pwd_error_time, 
+      remark, email)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=CHAR}, 
+      #{userNo,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{mobileNo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{isChangedPwd,jdbcType=INTEGER}, #{pwdErrorCount,jdbcType=INTEGER}, #{pwdErrorTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{email,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dq.es.pojo.user" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="mobileNo != null" >
+        mobile_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="isChangedPwd != null" >
+        is_changed_pwd,
+      </if>
+      <if test="pwdErrorCount != null" >
+        pwd_error_count,
+      </if>
+      <if test="pwdErrorTime != null" >
+        pwd_error_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=CHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isChangedPwd != null" >
+        #{isChangedPwd,jdbcType=INTEGER},
+      </if>
+      <if test="pwdErrorCount != null" >
+        #{pwdErrorCount,jdbcType=INTEGER},
+      </if>
+      <if test="pwdErrorTime != null" >
+        #{pwdErrorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dq.es.pojo.user" >
+    update user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=CHAR},
+      </if>
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNo != null" >
+        mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isChangedPwd != null" >
+        is_changed_pwd = #{isChangedPwd,jdbcType=INTEGER},
+      </if>
+      <if test="pwdErrorCount != null" >
+        pwd_error_count = #{pwdErrorCount,jdbcType=INTEGER},
+      </if>
+      <if test="pwdErrorTime != null" >
+        pwd_error_time = #{pwdErrorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dq.es.pojo.user" >
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=CHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      is_changed_pwd = #{isChangedPwd,jdbcType=INTEGER},
+      pwd_error_count = #{pwdErrorCount,jdbcType=INTEGER},
+      pwd_error_time = #{pwdErrorTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARBINARY}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dq.es.pojo.user" >
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=CHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      mobile_no = #{mobileNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      is_changed_pwd = #{isChangedPwd,jdbcType=INTEGER},
+      pwd_error_count = #{pwdErrorCount,jdbcType=INTEGER},
+      pwd_error_time = #{pwdErrorTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
